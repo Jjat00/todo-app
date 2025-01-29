@@ -1,58 +1,16 @@
-import React, { useEffect, useState } from 'react';
-
 import './styles.css';
-import { Todo, TodoCreate } from './../types/Todo';
 import { TodoList } from '../components/todoList';
-import { fetchTasks, createTask } from '../services/todo';
-
+import { useTodos } from './../Hooks/useTodos';
 
 export const Home = () => {
 
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [task, setTask] = useState<{ title: string, description: string }>({ title: '', description: '' });
-
-  useEffect(() => {
-
-    const getData = async () => {
-      try {
-        const data = await fetchTasks();
-        setTodos(data);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    }
-
-    getData();
-
-  }, [])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!task.title.trim()) return;
-
-    const newTodo: TodoCreate = {
-      title: task.title,
-      description: task.description || '',
-      completed: false,
-    };
-
-    // create task
-    const newTask = await createTask(newTodo)
-
-    if (newTask)
-      setTodos([...todos, newTask]);
-
-    setTask({ title: '', description: '' }); // Limpiar el objeto
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setTask(prevTask => ({
-      ...prevTask,
-      [name]: value,
-    }));
-  };
-
+  const {
+    todos,
+    task,
+    handleSubmit,
+    handleChange,
+    setTodos
+  } = useTodos();
 
   return (
     <div className="container">
