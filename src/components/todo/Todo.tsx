@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
-import { TodoItemProps } from '../../types/todoItem.types';
-import { DeleteIcon } from '../../icons/icons8-delete';
+import { TodoItemProps } from '@/types/todoItem.types';
+import { DeleteIcon } from '@/icons/icons8-delete';
 
 
 export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onDelete }) => {

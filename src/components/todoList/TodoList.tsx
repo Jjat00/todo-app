@@ -1,7 +1,7 @@
 import React from 'react';
-import { Todo as TodoItem } from './../todo';
-import { TodoListProps } from '../../types/todoList.types';
-import { useTodoActions } from '../../Hooks/useTodoActions';
+import { Todo as TodoItem } from '@/components/todo';
+import { TodoListProps } from '@/types/todoList.types';
+import { useTodoActions } from '@/Hooks/useTodoActions';
 import './styles.css';
 
 

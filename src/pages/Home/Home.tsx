@@ -1,5 +1,6 @@
-import { TodoList } from '../../components/todoList';
-import { useTodos } from '../../Hooks/useTodos';
+import { TodoList } from '@/components/todoList';
+import { useTodos } from '@/Hooks/useTodos';
+
 import './styles.css';
 
 export const Home = () => {

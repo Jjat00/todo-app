@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Todo, TodoCreate } from '../types/Todo';
-import { fetchTasks, createTask } from '../services/todo';
-import { TaskForm, UseTodosReturn } from '../types/todoForm.types';
+import { Todo, TodoCreate } from '@/types/Todo';
+import { fetchTasks, createTask } from '@/services/todo';
+import { TaskForm, UseTodosReturn } from '@/types/todoForm.types';
 
 export const useTodos = (): UseTodosReturn => {
   const [todos, setTodos] = useState<Todo[]>([]);

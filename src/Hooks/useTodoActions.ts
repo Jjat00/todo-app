@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { updateTask, deleteTask } from '../services/todo';
-import { TodoListProps } from '../types/todoList.types';
+import { updateTask, deleteTask } from '@/services/todo';
+import { TodoListProps } from '@/types/todoList.types';
 
 export const useTodoActions = ({ todos, setTodos }: TodoListProps) => {
   const toggleTodo = useCallback(async (id: string) => {
