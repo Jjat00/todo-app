@@ -1,33 +1,21 @@
 import React from 'react';
 import { Todo as TodoItem } from './../todo';
-import { Todo } from './../../types/Todo'
-import { updateTask, deleteTask } from '../../services/todo';
+import { TodoListProps } from '../../types/todoList.types';
+import { useTodoActions } from '../../Hooks/useTodoActions';
+import './styles.css';
 
 
-interface TodoListInterface {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
+export const TodoList: React.FC<TodoListProps> = (
+  props
+) => {
+  const { toggleTodo, deleteTodo } = useTodoActions(props);
 
-export const TodoList: React.FC<TodoListInterface> = ({
-  todos,
-  setTodos
-}) => {
-  const toggleTodo = (id: string) => {
-    updateTask(id, { completed: !todos.find(todo => todo.id === id)?.completed || false })
-    setTodos(todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
-  };
-
-  const deleteTodo = (id: string) => {
-    deleteTask(id);
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
+  if (!props.todos.length) {
+    return <div className="empty-state">No hay tareas pendientes</div>;
+  }
 
   return (
-    <div> {todos.map(todo => (
+    <div> {props.todos.map(todo => (
       <TodoItem
         key={todo.id}
         todo={todo}
