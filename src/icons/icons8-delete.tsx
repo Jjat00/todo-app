@@ -2,7 +2,7 @@ interface DeleteIconProps {
   color?: string; // Parámetro opcional para el color
 }
 
-export const DeleteIcon: React.FC<DeleteIconProps> = ({ color = "#ff9b9b" }) => {
+export const DeleteIcon: React.FC<DeleteIconProps> = ({ color = "#fff" }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
       <path

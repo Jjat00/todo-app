@@ -1,23 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Todo, TodoCreate } from '../types/Todo';
 import { fetchTasks, createTask } from '../services/todo';
-
-interface TaskForm {
-  title: string;
-  description: string;
-}
-
-interface UseTodosReturn {
-  todos: Todo[];
-  task: TaskForm;
-  handleSubmit: (e: React.FormEvent) => Promise<void>;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
+import { TaskForm, UseTodosReturn } from '../types/todoForm.types';
 
 export const useTodos = (): UseTodosReturn => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [task, setTask] = useState<TaskForm>({ title: '', description: '' });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -28,27 +17,37 @@ export const useTodos = (): UseTodosReturn => {
         console.error("Error fetching tasks:", error);
       }
     }
-
     getData();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!task.title.trim()) return;
 
-    const newTodo: TodoCreate = {
-      title: task.title,
-      description: task.description || '',
-      completed: false,
-    };
+    // Clear any previous error
+    setError(null);
 
-    const newTask = await createTask(newTodo);
-
-    if (newTask) {
-      setTodos(prevTodos => [...prevTodos, newTask]);
+    if (!task.title.trim()) {
+      setError("Task title is required");
+      return;
     }
 
-    setTask({ title: '', description: '' });
+    try {
+      const newTodo: TodoCreate = {
+        title: task.title,
+        description: task.description || '',
+        completed: false,
+      };
+
+      const newTask = await createTask(newTodo);
+
+      if (newTask) {
+        setTodos(prevTodos => [...prevTodos, newTask]);
+        setTask({ title: '', description: '' });
+      }
+    } catch (error) {
+      setError("Failed to create task. Please try again.");
+      console.error("Error creating task:", error);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +56,8 @@ export const useTodos = (): UseTodosReturn => {
       ...prevTask,
       [name]: value,
     }));
+    // Clear error when user starts typing
+    if (error) setError(null);
   };
 
   return {
@@ -64,6 +65,7 @@ export const useTodos = (): UseTodosReturn => {
     task,
     handleSubmit,
     handleChange,
-    setTodos
+    setTodos,
+    error
   };
 };

@@ -1,9 +1,9 @@
-.todo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin: 1rem 0;
 }
-

@@ -1,42 +1,43 @@
+import { TodoList } from '../../components/todoList';
+import { useTodos } from '../../Hooks/useTodos';
 import './styles.css';
-import { TodoList } from '../components/todoList';
-import { useTodos } from './../Hooks/useTodos';
 
 export const Home = () => {
-
   const {
     todos,
     task,
     handleSubmit,
     handleChange,
-    setTodos
+    setTodos,
+    error
   } = useTodos();
 
   return (
     <div className="container">
       <header className="header">
-        <h1>Mi Lista de Tareas</h1>
+        <h1>My Task List</h1>
       </header>
 
       <form className="todo-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="todo-input"
-          placeholder="Título de la tarea"
+          className={`todo-input ${error ? 'error' : ''}`}
+          placeholder="Task title"
           name="title"
           value={task.title}
           onChange={handleChange}
         />
+        {error && <p className="error-message">{error}</p>}
         <input
           type="text"
           className="todo-input"
-          placeholder="Descripción (opcional)"
+          placeholder="Description (optional)"
           name="description"
           value={task.description}
           onChange={handleChange}
         />
         <button type="submit" className="todo-button">
-          Agregar Tarea
+          Add Task
         </button>
       </form>
       <TodoList todos={todos} setTodos={setTodos} />

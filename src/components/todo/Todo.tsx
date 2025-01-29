@@ -1,13 +1,8 @@
 import React from 'react';
 import './styles.css';
-import { Todo } from '../../types/Todo';
+import { TodoItemProps } from '../../types/todoItem.types';
 import { DeleteIcon } from '../../icons/icons8-delete';
 
-interface TodoItemProps {
-  todo: Todo;
-  onToggle: (id: string) => void;
-  onDelete: (id: string) => void; // Nueva prop para eliminar
-}
 
 export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onDelete }) => {
   return (
