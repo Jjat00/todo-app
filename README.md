@@ -12,8 +12,8 @@ This project was created using [Vite](https://vitejs.dev/) as the bundler and [B
 ### 1. Clone this repository:
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
+git clone git@github.com:Jjat00/todo-app.git
+cd todo-app
 ```
 
 ### 2. Install dependencies using Bun:
